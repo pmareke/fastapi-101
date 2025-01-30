@@ -20,8 +20,4 @@ class ItemBuilder:
         return self
 
     def build(self) -> Item:
-        return Item(
-            self.item_id,
-            self.name,
-            self.value,
-        )
+        return Item(self.item_id, self.name, self.value)
