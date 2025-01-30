@@ -1,7 +1,7 @@
 from expects import be_empty, equal, expect, raise_error
 
 from src.domain.exceptions import ItemNotFoundException
-from src.domain.item import Item, ItemID
+from src.domain.item import ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
 from tests.builders.item_builder import ItemBuilder
 
