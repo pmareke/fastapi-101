@@ -3,13 +3,13 @@ from expects import be_empty, equal, expect, raise_error
 from src.domain.exceptions import ItemNotFoundException
 from src.domain.item import Item, ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
+from tests.builders.item_builder import ItemBuilder
 
 
 class TestDummyItemsRepository:
     def test_save(self) -> None:
         repository = DummyItemsRepository()
-        item_id = ItemID()
-        item = Item(item_id, "name", 100)
+        item = ItemBuilder().build()
 
         repository.save(item)
         items = repository.find_all()
@@ -25,11 +25,10 @@ class TestDummyItemsRepository:
 
     def test_find(self) -> None:
         repository = DummyItemsRepository()
-        item_id = ItemID()
-        item = Item(item_id, "name", 100)
+        item = ItemBuilder().build()
 
         repository.save(item)
-        found_item = repository.find(item_id)
+        found_item = repository.find(item.item_id)
 
         expect(found_item).to(equal(item))
 
@@ -41,18 +40,16 @@ class TestDummyItemsRepository:
 
     def test_update(self) -> None:
         repository = DummyItemsRepository()
-        item_id = ItemID()
-        item = Item(item_id, "name", 100)
+        item = ItemBuilder().build()
 
-        repository.update(item_id, item)
-        item = repository.find(item_id)
+        repository.update(item.item_id, item)
+        item = repository.find(item.item_id)
 
         expect(item).to(equal(item))
 
     def test_delete(self) -> None:
         repository = DummyItemsRepository()
-        item_id = ItemID()
-        item = Item(item_id, "name", 100)
+        item = ItemBuilder().build()
 
         id = repository.save(item)
         repository.delete(id)

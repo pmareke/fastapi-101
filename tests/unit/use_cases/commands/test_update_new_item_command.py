@@ -2,18 +2,17 @@ from doublex import Mimic, Spy
 from doublex_expects import have_been_called_with
 from expects import expect
 
-from src.domain.item import Item, ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
 from src.use_cases.commands.update_new_item_command import (
     UpdateOneItemCommand,
     UpdateOneItemCommandHandler,
 )
+from tests.builders.item_builder import ItemBuilder
 
 
 class TestUpdateItemCommand:
     def test_update_one_item(self):
-        item_id = ItemID()
-        item = Item(item_id, name="Item 1", value=10)
+        item = ItemBuilder().build()
         items_repository = Mimic(Spy, DummyItemsRepository)
         command = UpdateOneItemCommand(item)
         handler = UpdateOneItemCommandHandler(items_repository)
