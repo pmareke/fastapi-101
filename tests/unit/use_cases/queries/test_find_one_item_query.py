@@ -5,7 +5,7 @@ from src.domain.exceptions import (
     FindOneItemQueryHandlerException,
     ItemNotFoundException,
 )
-from src.domain.item import Item
+from src.domain.item import Item, ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
 from src.use_cases.queries.find_one_item_query import (
     FindOneItemQuery,
@@ -15,7 +15,8 @@ from src.use_cases.queries.find_one_item_query import (
 
 class TestFindOneItemsQuery:
     def test_find_one_item(self):
-        item = Item(name="Item 1", value=10)
+        item_id = ItemID()
+        item = Item(item_id, name="Item 1", value=10)
         with Mimic(Stub, DummyItemsRepository) as items_repository:
             items_repository.find(item.name).returns(item)
         query = FindOneItemQuery(item.name)
@@ -26,7 +27,8 @@ class TestFindOneItemsQuery:
         expect(response.item).to(equal(item))
 
     def test_raise_exception_when_finding_a_non_existing_item(self):
-        item = Item(name="Item 1", value=10)
+        item_id = ItemID()
+        item = Item(item_id, name="Item 1", value=10)
         with Mimic(Stub, DummyItemsRepository) as items_repository:
             items_repository.find(item.name).raises(ItemNotFoundException(item.name))
         query = FindOneItemQuery(item.name)
