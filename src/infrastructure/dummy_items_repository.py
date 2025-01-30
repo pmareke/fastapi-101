@@ -14,7 +14,7 @@ class DummyItemsRepository(ItemsRepository):
         try:
             return self.items[item_id]
         except KeyError:
-            raise ItemNotFoundException(f"Item with id {item_id.value} not found")
+            raise ItemNotFoundException(item_id)
 
     def save(self, item: Item) -> ItemID:
         self.items[item.item_id] = item
@@ -27,4 +27,4 @@ class DummyItemsRepository(ItemsRepository):
         try:
             del self.items[item_id]
         except KeyError:
-            raise ItemNotFoundException(f"Item with id {item_id} not found")
+            raise ItemNotFoundException(item_id)

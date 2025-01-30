@@ -14,4 +14,4 @@ class UpdateOneItemCommandHandler:
         self.items_repository = items_repository
 
     def execute(self, command: UpdateOneItemCommand) -> None:
-        self.items_repository.update(command.item.name, command.item)
+        self.items_repository.update(command.item.item_id, command.item)

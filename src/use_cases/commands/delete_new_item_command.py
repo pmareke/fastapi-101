@@ -4,12 +4,13 @@ from src.domain.exceptions import (
     DeleteOneItemQueryHandlerException,
     ItemNotFoundException,
 )
+from src.domain.item import ItemID
 from src.domain.items_repository import ItemsRepository
 
 
 @dataclass
 class DeleteOneItemCommand:
-    name: str
+    item_id: ItemID
 
 
 class DeleteOneItemCommandHandler:
@@ -18,6 +19,6 @@ class DeleteOneItemCommandHandler:
 
     def execute(self, command: DeleteOneItemCommand) -> None:
         try:
-            self.items_repository.delete(command.name)
+            self.items_repository.delete(command.item_id)
         except ItemNotFoundException as ex:
             raise DeleteOneItemQueryHandlerException from ex

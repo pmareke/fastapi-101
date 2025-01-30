@@ -4,7 +4,7 @@ from src.domain.exceptions import (
     FindOneItemQueryHandlerException,
     ItemNotFoundException,
 )
-from src.domain.item import Item
+from src.domain.item import Item, ItemID
 from src.domain.items_repository import ItemsRepository
 
 
@@ -15,7 +15,7 @@ class FindOneItemQueryResponse:
 
 @dataclass
 class FindOneItemQuery:
-    name: str
+    item_id: ItemID
 
 
 class FindOneItemQueryHandler:
@@ -24,7 +24,7 @@ class FindOneItemQueryHandler:
 
     def execute(self, query: FindOneItemQuery) -> FindOneItemQueryResponse:
         try:
-            items = self.items_repository.find(query.name)
+            items = self.items_repository.find(query.item_id)
             return FindOneItemQueryResponse(items)
         except ItemNotFoundException as ex:
             raise FindOneItemQueryHandlerException from ex

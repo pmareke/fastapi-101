@@ -19,4 +19,4 @@ class TestUpdateItemCommand:
 
         handler.execute(command)
 
-        expect(items_repository.update).to(have_been_called_with(item.name, item))
+        expect(items_repository.update).to(have_been_called_with(item.item_id, item))
