@@ -1,1 +1,3 @@
-print("FastAPI is running!")
+from fastapi import FastAPI
+
+app = FastAPI()
