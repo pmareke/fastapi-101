@@ -3,7 +3,7 @@ from doublex_expects import have_been_called_with
 from expects import expect
 
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
-from src.use_cases.commands.create_new_item_command import (
+from src.use_cases.commands.create_one_item_command import (
     CreateOneItemCommand,
     CreateOneItemCommandHandler,
 )

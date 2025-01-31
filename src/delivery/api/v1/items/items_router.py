@@ -9,15 +9,15 @@ from src.domain.exceptions import (
 )
 from src.domain.item import Item, ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
-from src.use_cases.commands.create_new_item_command import (
+from src.use_cases.commands.create_one_item_command import (
     CreateOneItemCommand,
     CreateOneItemCommandHandler,
 )
-from src.use_cases.commands.delete_new_item_command import (
+from src.use_cases.commands.delete_one_item_command import (
     DeleteOneItemCommand,
     DeleteOneItemCommandHandler,
 )
-from src.use_cases.commands.update_new_item_command import (
+from src.use_cases.commands.update_one_item_command import (
     UpdateOneItemCommand,
     UpdateOneItemCommandHandler,
 )

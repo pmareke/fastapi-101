@@ -7,7 +7,7 @@ from src.domain.exceptions import (
     ItemNotFoundException,
 )
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
-from src.use_cases.commands.delete_new_item_command import (
+from src.use_cases.commands.delete_one_item_command import (
     DeleteOneItemCommand,
     DeleteOneItemCommandHandler,
 )
