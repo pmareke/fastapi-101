@@ -17,8 +17,8 @@ class DummyItemsRepository(ItemsRepository):
             raise ItemNotFoundException(item_id)
 
     def save(self, item: Item) -> ItemID:
-        self.items[item.item_id] = item
-        return item.item_id
+        self.items[item.id] = item
+        return item.id
 
     def update(self, item_id: ItemID, item: Item) -> None:
         self.items[item_id] = item

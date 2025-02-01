@@ -28,7 +28,7 @@ class TestItemsAcceptance:
         response = client.get("/api/v1/items/")
 
         expect(response.status_code).to(equal(OK))
-        items = [{"item_id": {"id": item_id}, **payload}]
+        items = [{"id": {"id": item_id}, **payload}]
         expect(response.json()).to(equal(items))
 
     @pytest.mark.skip
@@ -40,7 +40,7 @@ class TestItemsAcceptance:
         item_id = response.json()["id"]
         response = client.get(f"/api/v1/items/{item_id}")
 
-        item = {"item_id": {"id": item_id}, **payload}
+        item = {"id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
     @pytest.mark.skip
@@ -65,7 +65,7 @@ class TestItemsAcceptance:
 
         response = client.get(f"/api/v1/items/{item_id}")
 
-        item = {"item_id": {"id": item_id}, **payload}
+        item = {"id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
     @pytest.mark.skip
