@@ -13,10 +13,6 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator:
     sleep(5)  # Graceful shutdown
 
 
-def create_app() -> FastAPI:
-    app = FastAPI(lifespan=lifespan)
-    app.include_router(prefix="/api/v1/items", router=items_router)
-    return app
+app = FastAPI(lifespan=lifespan)
 
-
-app = create_app()
+app.include_router(prefix="/api/v1/items", router=items_router)
