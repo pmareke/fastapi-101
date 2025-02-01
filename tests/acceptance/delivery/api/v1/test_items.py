@@ -15,7 +15,7 @@ class TestItemsAcceptance:
         response = client.post("/api/v1/items", json=payload)
 
         expect(response.status_code).to(equal(CREATED))
-        item_id = response.json()["value"]
+        item_id = response.json()["id"]
         expect(item_id).not_to(be_none)
 
     @pytest.mark.skip
@@ -24,11 +24,11 @@ class TestItemsAcceptance:
 
         payload = {"name": "Item 1", "value": 10}
         create_response = client.post("/api/v1/items", json=payload)
-        item_id = create_response.json()["value"]
+        item_id = create_response.json()["id"]
         response = client.get("/api/v1/items/")
 
         expect(response.status_code).to(equal(OK))
-        items = [{"item_id": {"value": item_id}, **payload}]
+        items = [{"item_id": {"id": item_id}, **payload}]
         expect(response.json()).to(equal(items))
 
     @pytest.mark.skip
@@ -37,10 +37,10 @@ class TestItemsAcceptance:
 
         payload = {"name": "Item 1", "value": 10}
         response = client.post("/api/v1/items", json=payload)
-        item_id = response.json()["value"]
+        item_id = response.json()["id"]
         response = client.get(f"/api/v1/items/{item_id}")
 
-        item = {"item_id": {"value": item_id}, **payload}
+        item = {"item_id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
     @pytest.mark.skip
@@ -57,7 +57,7 @@ class TestItemsAcceptance:
 
         payload = {"name": "Item 1", "value": 10}
         create_response = client.post("/api/v1/items", json=payload)
-        item_id = create_response.json()["value"]
+        item_id = create_response.json()["id"]
         payload = {"name": "Item 1", "value": 20}
         response = client.put(f"/api/v1/items/{item_id}", json=payload)
 
@@ -65,7 +65,7 @@ class TestItemsAcceptance:
 
         response = client.get(f"/api/v1/items/{item_id}")
 
-        item = {"item_id": {"value": item_id}, **payload}
+        item = {"item_id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
     @pytest.mark.skip
@@ -74,7 +74,7 @@ class TestItemsAcceptance:
 
         payload = {"name": "Item 1", "value": 10}
         create_response = client.post("/api/v1/items", json=payload)
-        item_id = create_response.json()["value"]
+        item_id = create_response.json()["id"]
         response = client.delete(f"/api/v1/items/{item_id}")
 
         expect(response.status_code).to(equal(NO_CONTENT))
