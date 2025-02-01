@@ -41,8 +41,7 @@ def create_one_item(
     item_request: ItemRequest,
     handler: CreateOneItemCommandHandler = Depends(_get_create_one_item_handler),
 ) -> ItemID:
-    item_id = ItemID()
-    item = Item(item_id, item_request.name, item_request.value)
+    item = Item(item_request.name, item_request.value)
     command = CreateOneItemCommand(item)
     response = handler.execute(command)
     return response.item_id
@@ -81,13 +80,14 @@ def _get_update_one_item_handler():
     return UpdateOneItemCommandHandler(items_repository)
 
 
-@items_router.put("/{item_id}")
+@items_router.put("/{id}")
 def update_one_item(
-    item_id: str,
+    id: str,
     item_request: ItemRequest,
     handler: UpdateOneItemCommandHandler = Depends(_get_update_one_item_handler),
 ) -> None:
-    item = Item(ItemID(item_id), item_request.name, item_request.value)
+    item_id = ItemID(id)
+    item = Item(item_request.name, item_request.value, item_id)
     command = UpdateOneItemCommand(item)
     handler.execute(command)
 

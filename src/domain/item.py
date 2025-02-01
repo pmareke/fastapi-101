@@ -9,6 +9,6 @@ class ItemID:
 
 @dataclass
 class Item:
-    id: ItemID
     name: str
     value: float
+    id: ItemID = ItemID()
