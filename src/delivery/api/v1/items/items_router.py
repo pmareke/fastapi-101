@@ -61,7 +61,7 @@ def create_one_item(
     item = Item(item_id, item_request.name, item_request.value)
     command = CreateOneItemCommand(item)
     response = handler.execute(command)
-    return response
+    return response.item_id
 
 
 @items_router.get("/")
