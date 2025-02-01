@@ -18,20 +18,18 @@ class TestDeleteOneItemsCommand:
     def test_delete_one_item(self):
         item = ItemBuilder().build()
         items_repository = Mimic(Spy, DummyItemsRepository)
-        command = DeleteOneItemCommand(item.item_id)
+        command = DeleteOneItemCommand(item.id)
         handler = DeleteOneItemCommandHandler(items_repository)
 
         handler.execute(command)
 
-        expect(items_repository.delete).to(have_been_called_with(item.item_id))
+        expect(items_repository.delete).to(have_been_called_with(item.id))
 
     def test_raise_exception_when_deleting_a_non_existing_item(self):
         item = ItemBuilder().build()
         with Mimic(Stub, DummyItemsRepository) as items_repository:
-            items_repository.delete(item.item_id).raises(
-                ItemNotFoundException(item.item_id)
-            )
-        query = DeleteOneItemCommand(item.item_id)
+            items_repository.delete(item.id).raises(ItemNotFoundException(item.id))
+        query = DeleteOneItemCommand(item.id)
         handler = DeleteOneItemCommandHandler(items_repository)
 
         expect(lambda: handler.execute(query)).to(

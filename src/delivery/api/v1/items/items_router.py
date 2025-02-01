@@ -36,22 +36,6 @@ def _get_create_one_item_handler():
     return CreateOneItemCommandHandler(items_repository)
 
 
-def _get_find_all_items_handler():
-    return FindAllItemsQueryHandler(items_repository)
-
-
-def _get_find_one_item_handler():
-    return FindOneItemQueryHandler(items_repository)
-
-
-def _get_update_one_item_handler():
-    return UpdateOneItemCommandHandler(items_repository)
-
-
-def _get_delete_one_item_handler():
-    return DeleteOneItemCommandHandler(items_repository)
-
-
 @items_router.post("/", status_code=CREATED)
 def create_one_item(
     item_request: ItemRequest,
@@ -64,12 +48,20 @@ def create_one_item(
     return response.item_id
 
 
+def _get_find_all_items_handler():
+    return FindAllItemsQueryHandler(items_repository)
+
+
 @items_router.get("/")
 def find_all_items(
     handler: FindAllItemsQueryHandler = Depends(_get_find_all_items_handler),
 ) -> list[Item]:
     response = handler.execute()
     return response.items
+
+
+def _get_find_one_item_handler():
+    return FindOneItemQueryHandler(items_repository)
 
 
 @items_router.get("/{item_id}")
@@ -85,6 +77,10 @@ def find_one_item(
         raise HTTPException(status_code=NOT_FOUND, detail=str(ex))
 
 
+def _get_update_one_item_handler():
+    return UpdateOneItemCommandHandler(items_repository)
+
+
 @items_router.put("/{item_id}")
 def update_one_item(
     item_id: str,
@@ -94,6 +90,10 @@ def update_one_item(
     item = Item(ItemID(item_id), item_request.name, item_request.value)
     command = UpdateOneItemCommand(item)
     handler.execute(command)
+
+
+def _get_delete_one_item_handler():
+    return DeleteOneItemCommandHandler(items_repository)
 
 
 @items_router.delete("/{item_id}", status_code=NO_CONTENT)

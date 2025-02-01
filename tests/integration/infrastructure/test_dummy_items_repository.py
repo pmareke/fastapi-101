@@ -28,7 +28,7 @@ class TestDummyItemsRepository:
         item = ItemBuilder().build()
 
         repository.save(item)
-        found_item = repository.find(item.item_id)
+        found_item = repository.find(item.id)
 
         expect(found_item).to(equal(item))
 
@@ -42,8 +42,8 @@ class TestDummyItemsRepository:
         repository = DummyItemsRepository()
         item = ItemBuilder().build()
 
-        repository.update(item.item_id, item)
-        item = repository.find(item.item_id)
+        repository.update(item.id, item)
+        item = repository.find(item.id)
 
         expect(item).to(equal(item))
 
