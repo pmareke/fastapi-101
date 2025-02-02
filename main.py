@@ -5,7 +5,6 @@ from time import sleep
 from fastapi import FastAPI
 
 from src.delivery.api.v1.items.items_router import items_router
-from src.infrastructure.dummy_items_repository import DummyItemsRepository
 
 
 @asynccontextmanager
@@ -14,7 +13,6 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator:
     sleep(5)  # Graceful shutdown
 
 
-items_repository = DummyItemsRepository()
 app = FastAPI(lifespan=lifespan)
 
 
