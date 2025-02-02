@@ -28,3 +28,13 @@ class DummyItemsRepository(ItemsRepository):
             del self.items[item_id]
         except KeyError:
             raise ItemNotFoundException(item_id)
+
+
+class DummyItemsRepositoryFactory:
+    repository: DummyItemsRepository | None = None
+
+    @classmethod
+    def create(cls) -> DummyItemsRepository:
+        if not cls.repository:
+            cls.repository = DummyItemsRepository()
+        return cls.repository
