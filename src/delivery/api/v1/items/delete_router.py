@@ -2,7 +2,7 @@ from http.client import NO_CONTENT, NOT_FOUND
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from src.domain.exceptions import DeleteOneItemQueryHandlerException
+from src.domain.exceptions import DeleteOneItemCommandHandlerException
 from src.domain.item import ItemID
 from src.infrastructure.dummy_items_repository import DummyItemsRepositoryFactory
 from src.use_cases.commands.delete_one_item_command import (
@@ -26,5 +26,5 @@ def delete_item(
         id = ItemID(item_id)
         command = DeleteOneItemCommand(id)
         handler.execute(command)
-    except DeleteOneItemQueryHandlerException as ex:
+    except DeleteOneItemCommandHandlerException as ex:
         raise HTTPException(status_code=NOT_FOUND, detail=str(ex))

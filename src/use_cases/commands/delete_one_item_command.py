@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from src.domain.exceptions import (
-    DeleteOneItemQueryHandlerException,
+    DeleteOneItemCommandHandlerException,
     ItemNotFoundException,
 )
 from src.domain.item import ItemID
@@ -21,4 +21,4 @@ class DeleteOneItemCommandHandler:
         try:
             self.items_repository.delete(command.item_id)
         except ItemNotFoundException as ex:
-            raise DeleteOneItemQueryHandlerException from ex
+            raise DeleteOneItemCommandHandlerException from ex

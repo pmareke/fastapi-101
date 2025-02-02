@@ -3,7 +3,7 @@ from doublex_expects import have_been_called_with
 from expects import expect, raise_error
 
 from src.domain.exceptions import (
-    DeleteOneItemQueryHandlerException,
+    DeleteOneItemCommandHandlerException,
     ItemNotFoundException,
 )
 from src.infrastructure.dummy_items_repository import DummyItemsRepository
@@ -33,5 +33,5 @@ class TestDeleteOneItemsCommand:
         handler = DeleteOneItemCommandHandler(items_repository)
 
         expect(lambda: handler.execute(query)).to(
-            raise_error(DeleteOneItemQueryHandlerException)
+            raise_error(DeleteOneItemCommandHandlerException)
         )

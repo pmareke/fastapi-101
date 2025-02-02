@@ -10,5 +10,5 @@ class FindOneItemQueryHandlerException(Exception):
     pass
 
 
-class DeleteOneItemQueryHandlerException(Exception):
+class DeleteOneItemCommandHandlerException(Exception):
     pass
