@@ -18,7 +18,6 @@ class TestItemsAcceptance:
         item_id = response.json()["id"]
         expect(item_id).not_to(be_none)
 
-    @pytest.mark.skip
     def test_find_all_items(self) -> None:
         client = TestClient(app)
 
@@ -31,7 +30,6 @@ class TestItemsAcceptance:
         items = [{"id": {"id": item_id}, **payload}]
         expect(response.json()).to(equal(items))
 
-    @pytest.mark.skip
     def test_find_one_item(self) -> None:
         client = TestClient(app)
 
@@ -40,10 +38,10 @@ class TestItemsAcceptance:
         item_id = response.json()["id"]
         response = client.get(f"/api/v1/items/{item_id}")
 
+        expect(response.status_code).to(equal(OK))
         item = {"id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
-    @pytest.mark.skip
     def test_find_one_non_existing_item(self) -> None:
         client = TestClient(app)
 
@@ -51,7 +49,6 @@ class TestItemsAcceptance:
 
         expect(response.status_code).to(equal(NOT_FOUND))
 
-    @pytest.mark.skip
     def test_update_one_item(self) -> None:
         client = TestClient(app)
 
@@ -68,7 +65,6 @@ class TestItemsAcceptance:
         item = {"id": {"id": item_id}, **payload}
         expect(response.json()).to(equal(item))
 
-    @pytest.mark.skip
     def test_delete_one_item(self) -> None:
         client = TestClient(app)
 
@@ -79,7 +75,6 @@ class TestItemsAcceptance:
 
         expect(response.status_code).to(equal(NO_CONTENT))
 
-    @pytest.mark.skip
     def test_delete_one_non_existing_item(self) -> None:
         client = TestClient(app)
 
